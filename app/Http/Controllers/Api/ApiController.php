@@ -13,4 +13,9 @@ class ApiController extends Controller
 
         return response()->json(Item::get(), 200);
     }
+
+    public function getItemById(int $id){
+
+        return response()->json(Item::find($id), 200);
+    }
 }
