@@ -20,7 +20,14 @@ class ApiController extends Controller
     }
 
     public function addItem(Request $request){
+
         $item = Item::create($request->all());
         return response()->json($item, 201);
+    }
+
+    public function editItem(Request $request, Item $item){
+        
+        $item->update($request->all());
+        return response()->json($item, 200);
     }
 }

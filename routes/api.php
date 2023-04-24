@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('item', [ApiController::class, 'getItem']);
 Route::get('item/{id}', [ApiController::class, 'getItemById']);
 Route::post('item', [ApiController::class, 'addItem']);
+Route::put('item/{item}', [ApiController::class, 'editItem']);
