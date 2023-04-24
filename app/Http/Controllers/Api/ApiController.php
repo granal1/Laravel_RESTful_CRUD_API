@@ -18,4 +18,9 @@ class ApiController extends Controller
 
         return response()->json(Item::find($id), 200);
     }
+
+    public function addItem(Request $request){
+        $item = Item::create($request->all());
+        return response()->json($item, 201);
+    }
 }

@@ -15,6 +15,8 @@ class Item extends Model
         'name',
         'phone',
         'key',
+        'created_at',
+        'updated_at',
     ];
 
 }
