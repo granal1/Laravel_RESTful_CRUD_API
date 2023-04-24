@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('item', [ApiController::class, 'getItem']);
 Route::get('item/{id}', [ApiController::class, 'getItemById']);
 Route::post('item', [ApiController::class, 'addItem']);
-Route::put('item/{item}', [ApiController::class, 'editItem']);
-Route::delete('item/{item}', [ApiController::class, 'deleteItem']);
+Route::put('item/{id}', [ApiController::class, 'editItem']);
+Route::delete('item/{id}', [ApiController::class, 'deleteItem']);

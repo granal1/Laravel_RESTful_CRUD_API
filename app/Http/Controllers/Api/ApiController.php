@@ -16,7 +16,11 @@ class ApiController extends Controller
 
     public function getItemById(int $id){
 
-        return response()->json(Item::find($id), 200);
+        $item = Item::find($id);
+        if (is_null($item)) {
+            return response()->json(['error' => true, 'message' => 'Item not found'], 404);
+        }
+        return response()->json($item, 200);
     }
 
     public function addItem(Request $request){
@@ -25,14 +29,20 @@ class ApiController extends Controller
         return response()->json($item, 201);
     }
 
-    public function editItem(Request $request, Item $item){
-        
+    public function editItem(Request $request, $id){
+        $item = Item::find($id);
+        if (is_null($item)) {
+            return response()->json(['error' => true, 'message' => 'Item not found'], 404);
+        }
         $item->update($request->all());
         return response()->json($item, 200);
     }
 
-    public function deleteItem(Request $request, Item $item){
-        
+    public function deleteItem(Request $request, $id){
+        $item = Item::find($id);
+        if (is_null($item)) {
+            return response()->json(['error' => true, 'message' => 'Item not found'], 404);
+        }
         $item->delete();
         return response()->json('', 204);
     }
