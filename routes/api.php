@@ -23,3 +23,4 @@ Route::get('item', [ApiController::class, 'getItem']);
 Route::get('item/{id}', [ApiController::class, 'getItemById']);
 Route::post('item', [ApiController::class, 'addItem']);
 Route::put('item/{item}', [ApiController::class, 'editItem']);
+Route::delete('item/{item}', [ApiController::class, 'deleteItem']);

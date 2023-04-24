@@ -30,4 +30,10 @@ class ApiController extends Controller
         $item->update($request->all());
         return response()->json($item, 200);
     }
+
+    public function deleteItem(Request $request, Item $item){
+        
+        $item->delete();
+        return response()->json('', 204);
+    }
 }
