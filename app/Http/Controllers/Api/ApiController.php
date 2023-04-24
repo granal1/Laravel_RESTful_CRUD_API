@@ -9,7 +9,7 @@ use App\Models\Item;
 
 class ApiController extends Controller
 {
-    public function getItem(){
+    public function getAllItems(){
 
         return response()->json(Item::get(), 200);
     }
