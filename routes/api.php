@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('item', [ApiController::class, 'getAllItems']);
+Route::get('item/list', [ApiController::class, 'getAllItems']);
 Route::get('item/{id}', [ApiController::class, 'getItemById']);
 Route::post('item', [ApiController::class, 'addItem']);
 Route::put('item/{id}', [ApiController::class, 'editItem']);

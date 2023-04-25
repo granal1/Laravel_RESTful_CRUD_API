@@ -17,6 +17,7 @@ class Item extends Model
         'key',
         'created_at',
         'updated_at',
+        'history'
     ];
 
 }

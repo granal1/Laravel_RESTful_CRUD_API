@@ -24,6 +24,7 @@ class ApiController extends Controller
         if (is_null($item)) {
             return response()->json(['error' => true, 'message' => 'Item not found'], 404);
         }
+        $item['history'] = json_decode($item['history'], true);
         return response()->json($item, 200);
     }
 
@@ -52,6 +53,22 @@ class ApiController extends Controller
         if (is_null($item)) {
             return response()->json(['error' => true, 'message' => 'Item not found'], 404);
         }
+
+        $history = json_decode($item['history'], true);
+        if(empty($history)){
+            $history = [];
+        }
+
+        $current = array(
+            'name' => $item['name'], 
+            'phone' => $item['phone'], 
+            'key' => $item['key'], 
+            'updated_at' => $item['updated_at']
+        );
+
+        array_push($history, $current);
+        $data['history'] = json_encode($history);
+
         try {
             DB::beginTransaction();
             $item->update($data);
@@ -60,6 +77,7 @@ class ApiController extends Controller
         catch (\Exception $e) {
             DB::rollBack();
         }
+        $item['history'] = json_decode($item['history'], true);
         return response()->json($item, 200);
     }
 
