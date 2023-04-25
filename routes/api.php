@@ -15,12 +15,16 @@ use App\Http\Controllers\Api\ApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/*
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+*/
 
-Route::get('item/list', [ApiController::class, 'getAllItems']);
-Route::get('item/{id}', [ApiController::class, 'getItemById']);
-Route::post('item', [ApiController::class, 'addItem']);
-Route::put('item/{id}', [ApiController::class, 'editItem']);
-Route::delete('item/{id}', [ApiController::class, 'deleteItem']);
+Route::middleware(['auth_api'])->group(function () {
+    Route::get('item/list', [ApiController::class, 'getAllItems']);
+    Route::get('item/{id}', [ApiController::class, 'getItemById']);
+    Route::post('item', [ApiController::class, 'addItem']);
+    Route::put('item/{id}', [ApiController::class, 'editItem']);
+    Route::delete('item/{id}', [ApiController::class, 'deleteItem']);
+});
