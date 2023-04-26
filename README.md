@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# REST API (CRUD) сервис
 
-## About Laravel
+RESTful web service представляет данные в удобном для клиента формате с использованием протокола HTTP и принципов REST по модели client <-> server.
+<p>В приложени реализовано:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Создание элементов.
+- Обновление элементов.
+- Удаление элементов.
+- Получение информации о элементе.
+- Хранение истории изменений сущности.
+- Валидация полей сущности.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p>Доступ в сервису предоставляется по токену.
+Работоспособность функционала приложения и БД контролируется тестами, охватывающими 90.91% используемого кода.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+С отчетом о покрытии кода тестами можно ознакомиться: `tests/coverage/index.html`.
+История изменений сущности сохраняется json-поле сущности.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Начальная настройка
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<p>После установки в файле .env необходимо настроить доступ к БД. Файл .env.testing может быть использован для проведения тестирования.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Для создания рабочих таблиц выполнить команду `php artisan migrate`.
+В файле `config/apitokens.php` содержится массив с действительными токенами. Токены могут быть заменены своими.
 
-## Laravel Sponsors
+## Сущность
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<p>Сущность: Item
+<p>Поля сущности:
 
-### Premium Partners
+- id - int автоинкремент
+- name - char(255)
+- phone - char(15)
+- key - char(25) not null
+- created_at - datetime - дата создания элемента
+- pdated_at - datetime - дата обновления элемента
+- history - json - хранение истории изменения сущности
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Добавление элемента
 
-## Contributing
+- Авторизация по Bearer Token в заголовке запроса.
+- Метод запроса: POST
+- URL: /api/item/
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<p>Параметры:
 
-## Code of Conduct
+- name - char(255)
+- phone - char(15)
+- key - char(25) not null
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Список всех элементов
 
-## Security Vulnerabilities
+- Авторизация по Bearer Token в заголовке запроса.
+- Метод запроса: GET
+- URL: /api/item/list
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<p>Параметры: нет
 
-## License
+## Получение информации о элементе
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Авторизация по Bearer Token в заголовке запроса.
+- Метод запроса: GET
+- URL: /api/item/{id элемента}
+
+<p>Параметры: нет
+
+## Изменение элемента
+
+- Авторизация по Bearer Token в заголовке запроса.
+- Метод запроса: PUT
+- URL: /api/item/{id элемента}
+
+<p>Параметры:
+
+- name - char(255)
+- phone - char(15)
+- key - char(25) not null
+
+Указываются изменяемые поля.
+
+## Удаление элемента
+
+- Авторизация по Bearer Token в заголовке запроса.
+- Метод запроса: DELETE
+- URL: /api/item/{id элемента}
+
+<p>Параметры: нет
+
+## Получаемые данные
+
+<p>JSON-формат
+
+```
+{
+    "id": номер записи
+    "name": "Имя",
+    "phone": "телефон",
+    "key": "ключ",
+    "history": (при наличии)
+        {
+            "name": "Имя",
+            "phone": "телефон",
+            "key": "ключ",
+            "updated_at": "дата и время изменения",
+        },
+        {
+            "name": "Имя",
+            "phone": "телефон",
+            "key": "ключ",
+            "updated_at": "дата и время изменения",
+        }
+    "created_at": "дата и время создания",
+    "updated_at": "дата и время изменения",
+}
+```

@@ -28,11 +28,3 @@ Route::middleware(['auth_api'])->group(function () {
     Route::put('item/{id}', [ApiController::class, 'editItem']);
     Route::delete('item/{id}', [ApiController::class, 'deleteItem']);
 });
-
-/*
-Route::get('item/list', [ApiController::class, 'getAllItems']);
-Route::get('item/{id}', [ApiController::class, 'getItemById']);
-Route::post('item', [ApiController::class, 'addItem']);
-Route::put('item/{id}', [ApiController::class, 'editItem']);
-Route::delete('item/{id}', [ApiController::class, 'deleteItem']);
-*/
